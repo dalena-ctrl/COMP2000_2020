@@ -1,6 +1,7 @@
 import java.awt.*;
+import javax.swing.JPanel;
 
-public class Cell {
+public class Cell extends JPanel{
 
     int x; 
     int y; 
@@ -10,9 +11,18 @@ public class Cell {
         this.y = y;
     }
 
-    public void paint(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(x, y, 35, 35);
+    public boolean contains (Point target) {
+        if (target == null) {
+            return false;
+        } else 
+        return target.x > x && target.x < x + 35 && target.y > y && target.y < y + 35;
+    }
+
+    public void paint(Graphics g, boolean highlighted) {
+        if (highlighted) {
+            g.setColor(Color.GRAY);
+            g.fillRect(x, y, 35, 35);
+        }
         g.setColor(Color.BLACK);
         g.drawRect(x, y, 35, 35);
     }
