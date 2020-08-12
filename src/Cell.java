@@ -1,27 +1,19 @@
 import java.awt.*;
-import javax.swing.JPanel;
 
-public class Cell extends JPanel{
-
-    int x;
-    int y;
+public class Cell extends Rectangle {
 
     public Cell(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(x, y, 35, 35);
     }
 
+    @Override
     public boolean contains (Point target) {
         if (target == null) {
             return false;
         } else 
-        return target.x > x && target.x < x + 35 && target.y > y && target.y < y + 35;
+        return super.contains(target);
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     public void paint(Graphics g, boolean highlighted) {
         if (highlighted) {
             g.setColor(Color.GRAY);
