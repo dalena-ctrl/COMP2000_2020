@@ -1,15 +1,9 @@
 import java.awt.*;
 
-public class Rabbit implements Actor {
-
-    Cell point;
+public class Rabbit extends Actor {
 
     public Rabbit(Cell point) {
-        this.point = point;
+        super(point);
+        display = Color.WHITE;
     }
-
-    public void paint(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillRect(point.x, point.y, 35, 35);
-    } 
 }

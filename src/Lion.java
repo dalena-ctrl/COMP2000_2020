@@ -1,15 +1,9 @@
 import java.awt.*;
 
-public class Lion implements Actor {
-
-    Cell point;
+public class Lion extends Actor {
 
     public Lion(Cell point) {
-        this.point = point;
-    }
-
-    public void paint(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(point.x, point.y, 35, 35);
+        super(point);
+        display = Color.RED;
     }
 }
