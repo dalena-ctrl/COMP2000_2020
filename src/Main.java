@@ -1,14 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Main extends JFrame {
-
-    public class Canvas extends JPanel {
-
+class Main extends JFrame {
+    
+    class App extends JPanel {
+        
         Stage stage;
 
-        public Canvas() {
-            setPreferredSize(new Dimension(850, 720));
+        public App() {
+            setPreferredSize(new Dimension(720, 720));
             stage = new Stage();
         }
 
@@ -16,11 +16,12 @@ public class Main extends JFrame {
         public void paint(Graphics g) {
             stage.paint(g, getMousePosition());
         }
+
     }
 
-    public Main() {
+    private Main() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Canvas canvas = new Canvas();
+        App canvas = new App();
         this.setContentPane(canvas);
         this.pack();
         this.setVisible(true);
@@ -36,4 +37,4 @@ public class Main extends JFrame {
         Main window = new Main();
         window.run();
     }
-} 
+}

@@ -1,27 +1,52 @@
 import java.awt.*;
+import java.util.Optional;
 
 public class Grid {
 
-    Cell[][] grid = new Cell[20][20];
+    Cell[][] cells = new Cell[20][20];
 
-    public Grid() {
-        for (int x=0; x<grid.length; x++) {
-            for (int y=0; y<grid.length; y++) {
-                grid[x][y] = new Cell(10 + x * 35, 10 + y * 35);
-            }
-        }
-    }
-    
-    public void paint(Graphics g, Point mousePosition) {
-        for (int x=0; x<grid.length; x++) {
-            for (int y=0; y<grid.length; y++) {
-                grid[x][y].paint(g, grid[x][y].contains(mousePosition));
+    public Grid(){
+        for (int i = 0; i < cells.length; i++){
+            for( int j = 0; j < cells[i].length; j++){
+                cells[i][j] = new Cell(colToLabel(i), j, 10+35*i,10+35*j);
             }
         }
     }
 
-    public Cell setLocation() {
-        java.util.Random random = new java.util.Random();
-        return grid[random.nextInt(20)][random.nextInt(20)];
+    private char colToLabel(int col) {
+        return (char) (col + 65);
     }
+
+    private int labelToCol(char col) {
+        return (int) col - 65;
+    }
+
+    public void paint(Graphics g, Point mousePos){
+        for (int i = 0; i < cells.length; i++){
+            for (int j = 0; j < cells[i].length; j++){
+                cells[i][j].paint(g, mousePos);
+            }
+        }
+    }
+
+    public Optional<Cell> cellAtColRow(char c, int r){
+        int cc = labelToCol(c);
+        if (cc >= 0 && cc < cells.length && r >= 0 && r < cells[cc].length){
+            return Optional.of(cells[cc][r]);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Cell> cellAtPoint(Point p){
+        for (int i = 0; i < cells.length; i++){
+            for (int j = 0; j < cells[i].length; j++){
+                if (cells[i][j].contains(p)){
+                    return Optional.of(cells[i][j]);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
 }

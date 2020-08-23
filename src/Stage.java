@@ -1,29 +1,32 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Stage {
-
     Grid grid;
-    Actor rabbit;
-    Actor lion;
-    Actor puppy;
-    ArrayList<Actor> actors = new ArrayList<>();
 
-    public Stage() {
+    ArrayList<Actor> actors;
+    
+    public Stage(){
         grid = new Grid();
-        rabbit = new Rabbit(grid.setLocation());
-        lion = new Lion(grid.setLocation());
-        puppy = new Puppy(grid.setLocation());
-        actors.add(lion);
-        actors.add(puppy);
-        actors.add(rabbit);
+        actors = new ArrayList<Actor>();
+    
+        actors.add(new Puppy(grid.cellAtColRow('A', 0).get()));
+        actors.add(new Lion(grid.cellAtColRow('A', 18).get()));
+        actors.add(new Rabbit(grid.cellAtColRow('J',3).get()));
     }
 
-    public void paint(Graphics g, Point mousePosition) {
-        grid.paint(g, mousePosition);
-        for (int i=0; i<actors.size(); i++) {
-            actors.get(i).paint(g);
-            System.out.println(actors.get(i));
+    public void paint(Graphics g, Point mouseLoc){
+        grid.paint(g,mouseLoc);
+        
+        for(Actor a: actors){
+            a.paint(g);   
         }
+
+        Optional<Cell> cap = grid.cellAtPoint(mouseLoc);
+        if (cap.isPresent()){
+            Cell capc = cap.get();
+            g.drawString(String.valueOf(capc.col) + String.valueOf(capc.row), 740, 30);
+        } 
     }
 }

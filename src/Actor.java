@@ -1,17 +1,18 @@
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Actor {
-    Color display;
-    Cell location;
-    
-    public Actor(Cell point) {
-        this.location = point;
-    }
+public abstract class Actor {
+
+    Color colour; 
+    Cell loc;
+    ArrayList<Polygon> display;
 
     public void paint(Graphics g) {
-        g.setColor(display);
-        g.fillRect(location.x+7, location.y+7, 22, 22);
-        g.setColor(Color.BLACK);
-        g.drawRect(location.x+7, location.y+7, 22, 22);
+        for (Polygon p: display) {
+            g.setColor(colour);
+            g.fillPolygon(p);
+            g.setColor(Color.GRAY);
+            g.drawPolygon(p);
+        }
     }
 }
