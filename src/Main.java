@@ -8,7 +8,7 @@ class Main extends JFrame {
         Stage stage;
 
         public App() {
-            setPreferredSize(new Dimension(720, 720));
+            setPreferredSize(new Dimension(820, 720));
             stage = new Stage();
         }
 
@@ -16,7 +16,6 @@ class Main extends JFrame {
         public void paint(Graphics g) {
             stage.paint(g, getMousePosition());
         }
-
     }
 
     private Main() {
