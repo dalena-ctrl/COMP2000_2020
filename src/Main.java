@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 class Main extends JFrame {
     
@@ -7,9 +8,10 @@ class Main extends JFrame {
         
         Stage stage;
 
-        public App() {
+        public App() throws IOException {
             setPreferredSize(new Dimension(820, 720));
             stage = new Stage();
+            stage = StageReader.stageReader("data/stage1.rvb");
         }
 
         @Override

@@ -5,7 +5,7 @@ public class Cell extends Rectangle {
     static int size = 35;
     char col;
     int row;
-
+ 
 
     public Cell(char col, int row, int x, int y) {
         super(x, y, size, size);
