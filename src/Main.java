@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 
 class Main extends JFrame {
     
@@ -8,10 +10,9 @@ class Main extends JFrame {
         
         Stage stage;
 
-        public App() throws IOException {
-            setPreferredSize(new Dimension(820, 720));
-            stage = new Stage();
-            stage = StageReader.stageReader("data/stage1.rvb");
+        public App() {
+            setPreferredSize(new Dimension(880, 720));
+            stage = StageReader.readStage("data/stage1.rvb");
         }
 
         @Override
@@ -30,7 +31,17 @@ class Main extends JFrame {
 
     public void run() {
         while (true) {
+            Instant startTime = Instant.now();
             this.repaint();
+            Instant endTime = Instant.now();
+            long howLong = Duration.between(startTime, endTime).toMillis();
+            try{
+                Thread.sleep(20l - howLong);
+            } catch (InterruptedException e){
+                System.out.println("thread was interrupted, but who cares?");
+            } catch (IllegalArgumentException e){
+                System.out.println("application can't keep up with framerate");
+            }
         }
     }
 

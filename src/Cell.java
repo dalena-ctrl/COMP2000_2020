@@ -1,20 +1,21 @@
 import java.awt.*;
 
-public class Cell extends Rectangle {
-
+class Cell extends Rectangle {
+    // fields
     static int size = 35;
     char col;
     int row;
- 
 
-    public Cell(char col, int row, int x, int y) {
-        super(x, y, size, size);
+    //constructors
+    public Cell(char col, int row, int x, int y){
+        super(x,y,size,size);
         this.col = col;
         this.row = row;
     }
 
-    public void paint(Graphics g, Point mousePosition) {
-        if (contains(mousePosition)) {
+    //methods
+    void paint(Graphics g, Point mousePos){
+        if(contains(mousePos)){
             g.setColor(Color.GRAY);
         } else {
             g.setColor(Color.WHITE);
@@ -24,8 +25,8 @@ public class Cell extends Rectangle {
         g.drawRect(x,y,size,size);
     }
 
-    public boolean contains(Point p) {
-        if (p!= null) {
+    public boolean contains(Point p){
+        if (p != null){
             return super.contains(p);
         } else {
             return false;
