@@ -3,9 +3,15 @@ import java.util.ArrayList;
 
 public class Lion extends Actor {
 
-    public Lion(Cell loc) {
+    public Lion(Cell loc, float redness) {
         this.loc = loc;
+        this.redness = redness;
         this.colour = Color.RED;
+        this.turns = 1; 
+        this.moves = 1;
+    }
+
+    public void setPoly() {
         this.display = new ArrayList<Polygon>();
         Polygon mane = new Polygon();
         mane.addPoint(loc.x + 6, loc.y + 6);
@@ -20,5 +26,4 @@ public class Lion extends Actor {
         this.display.add(mane);
         this.display.add(face);
     }
-
 }
