@@ -33,11 +33,11 @@ class Cell extends Rectangle {
         }
     }
 
-    public int leftOfComparison(Cell c) {
-        return Integer.compare(row, c.row);
+    public int leftOfComparison(Cell c){
+        return Character.compare(col, c.col);
     }
 
-    public int aboveComparison(Cell c) {
+    public int aboveComparison(Cell c){
         return Integer.compare(row, c.row);
     }
 }

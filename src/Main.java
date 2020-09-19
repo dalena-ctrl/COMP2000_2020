@@ -41,6 +41,11 @@ class Main extends JFrame {
 
     }
 
+    public static void main(String[] args) throws Exception {
+        Main window = new Main();
+        window.run();
+    }
+
     private Main() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         App canvas = new App();
@@ -63,10 +68,5 @@ class Main extends JFrame {
                 System.out.println("application can't keep up with framerate");
             }
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        Main window = new Main();
-        window.run();
     }
 }

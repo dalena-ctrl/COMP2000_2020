@@ -1,44 +1,20 @@
-import java.util.function.Consumer;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Color;
 import java.util.*;
+import java.util.function.Consumer;
 
-public class Grid {
-
+class Grid {
+    //fields
     Cell[][] cells = new Cell[20][20];
 
-    public Grid() {
-        for (int i = 0; i < cells.length; i++){
-            for( int j = 0; j < cells[i].length; j++){
+    // constructor
+    public Grid(){
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[i].length; j++){
                 cells[i][j] = new Cell(colToLabel(i), j, 10+35*i,10+35*j);
             }
         }
-    }
-
-    public void paintOverlay(Graphics g, List<Cell> cells, Color colour) {
-        g.setColor(colour);
-        for (Cell c: cells) {
-            g.fillRect(c.x+2, c.y+2, c.width-4, c.height-4);
-        }
-    }
-
-    public List<Cell> getRadius(Cell from, int size) {
-        int i = labelToCol(from.col);
-        int j = from.row;
-        Set<Cell> inRadius = new HashSet<Cell>();
-
-        if (size > 0) {
-            cellAtColRow(colToLabel(i), j - 1).ifPresent(inRadius::add);
-            cellAtColRow(colToLabel(i), j + 1).ifPresent(inRadius::add);
-            cellAtColRow(colToLabel(i - 1), j).ifPresent(inRadius::add);
-            cellAtColRow(colToLabel(i + 1), j).ifPresent(inRadius::add);
-        }
-
-        for (Cell c: inRadius.toArray(new Cell[0])) {
-            inRadius.addAll(getRadius(c, size-1));
-        }
-        return new ArrayList<Cell>(inRadius);
     }
 
     private char colToLabel(int col) {
@@ -49,11 +25,12 @@ public class Grid {
         return (int) col - 65;
     }
 
-    public void paint(Graphics g, Point mousePos) {
+    // methods
+    public void paint(Graphics g, Point mousePos){
         doToEachCell(   (Cell c) -> c.paint(g, mousePos)  );
     }
 
-    public Optional<Cell> cellAtColRow(char c, int r) {
+    public Optional<Cell> cellAtColRow(char c, int r){
         int cc = labelToCol(c);
         if (cc >= 0 && cc < cells.length && r >= 0 && r < cells[cc].length){
             return Optional.of(cells[cc][r]);
@@ -62,9 +39,9 @@ public class Grid {
         }
     }
 
-    public Optional<Cell> cellAtPoint(Point p) {
-        for (int i = 0; i < cells.length; i++){
-            for (int j = 0; j < cells[i].length; j++){
+    public Optional<Cell> cellAtPoint(Point p){
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[i].length; j++){
                 if (cells[i][j].contains(p)){
                     return Optional.of(cells[i][j]);
                 }
@@ -85,4 +62,29 @@ public class Grid {
             }
         }
     }
+
+    public void paintOverlay(Graphics g, List<Cell> cells, Color colour){
+        g.setColor(colour);
+        for(Cell c: cells){
+            g.fillRect(c.x+2, c.y+2, c.width-4, c.height-4);
+        }
+    }
+
+    public List<Cell> getRadius(Cell from, int size) {
+        int i = labelToCol(from.col);
+        int j = from.row;
+        Set<Cell> inRadius = new HashSet<Cell>();
+        if (size > 0){
+            cellAtColRow(colToLabel(i), j - 1).ifPresent(inRadius::add);
+            cellAtColRow(colToLabel(i), j + 1).ifPresent(inRadius::add);
+            cellAtColRow(colToLabel(i - 1), j).ifPresent(inRadius::add);
+            cellAtColRow(colToLabel(i + 1), j).ifPresent(inRadius::add);
+        }
+
+        for(Cell c: inRadius.toArray(new Cell[0])){
+            inRadius.addAll(getRadius(c, size - 1));
+        }
+        return new ArrayList<Cell>(inRadius);
+    }
+
 }

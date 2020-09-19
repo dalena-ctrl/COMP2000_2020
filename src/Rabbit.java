@@ -12,7 +12,7 @@ public class Rabbit extends Actor {
         setPoly();
     }
 
-    public void setPoly() {
+    public void setPoly(){
         this.display = new ArrayList<Polygon>();
         Polygon ear1 = new Polygon();
         ear1.addPoint(loc.x + 11, loc.y + 5);
@@ -33,4 +33,5 @@ public class Rabbit extends Actor {
         this.display.add(ear2);
         this.display.add(face);
     }
+
 }

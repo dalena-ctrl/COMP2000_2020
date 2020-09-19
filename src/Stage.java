@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Color;
@@ -12,15 +13,14 @@ public class Stage {
     enum State {ChoosingActor, SelectingNewLocation, CPUMoving}
     State currentState = State.ChoosingActor;
 
-    
-    public Stage() {
+    public Stage(){
         grid = new Grid();
         actors = new ArrayList<Actor>();
         cellOverlay = new ArrayList<Cell>();
         currentState = State.ChoosingActor;
     }
 
-    public void paint(Graphics g, Point mouseLoc) {
+    public void paint(Graphics g, Point mouseLoc){
 
         // do we have AI moves to make
         if (currentState == State.CPUMoving){
@@ -64,7 +64,7 @@ public class Stage {
         }
     }
 
-    public List<Cell> getClearRadius(Cell from, int size) {
+    public List<Cell> getClearRadius(Cell from, int size){
         List<Cell> init = grid.getRadius(from, size);
         for(Actor a: actors){
             init.remove(a.loc);
@@ -112,5 +112,6 @@ public class Stage {
                 System.out.println(currentState);
                 break;
         }
+
     }
 }
