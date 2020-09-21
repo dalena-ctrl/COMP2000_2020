@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Lion extends Actor {
 
     public Lion(Cell loc, float redness) {
-        this.loc = loc;
+        this.setLocation(loc);
         this.redness = redness;
         this.colour = Color.RED;
         this.turns = 1;
