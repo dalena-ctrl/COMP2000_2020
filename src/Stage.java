@@ -36,7 +36,9 @@ public class Stage {
                 a.turns = 1;
             }
         }
-        grid.paint(g,mouseLoc);
+        for (Cell c : grid) { 
+            c.paint(g, mouseLoc);
+        }
         grid.paintOverlay(g, cellOverlay, new Color(0f, 0f, 1f, 0.5f));
 
         for(Actor a: actors){
