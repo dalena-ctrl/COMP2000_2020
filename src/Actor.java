@@ -7,9 +7,9 @@ public abstract class Actor {
     Cell loc;
     ArrayList<Polygon> display;
     MoveStrategy strat;
-    float redness;
+    private float redness;
     int turns;
-    int moves;
+    private int moves;
 
     public void paint(Graphics g) {
         for (Polygon p: display) {
@@ -35,5 +35,13 @@ public abstract class Actor {
             this.strat = new LeftMostMove();
         }
         setPoly();
+    }
+
+    public float getRedness() {
+        return redness;
+    }
+
+    public int getMovement() {
+        return moves;
     }
 }

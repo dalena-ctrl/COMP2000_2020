@@ -26,7 +26,7 @@ public class Stage {
         if (currentState == State.CPUMoving){
             for(Actor a: actors){
                 if (!a.isTeamRed()){
-                    List<Cell> possibleLocs = getClearRadius(a.loc, a.moves);
+                    List<Cell> possibleLocs = getClearRadius(a.loc, a.getMovement());
                     Cell nextLoc = a.strat.chooseNextLoc(possibleLocs);
                     a.setLocation(nextLoc);
                 }
@@ -62,7 +62,7 @@ public class Stage {
             g.drawString("location:", 730, yloc + 13 + 70 * i);
             g.drawString(Character.toString(a.loc.col) + Integer.toString(a.loc.row), 840, yloc + 13 + 70 * i);
             g.drawString("redness:", 730, yloc + 26 + 70*i);
-            g.drawString(Float.toString(a.redness), 840, yloc + 26 + 70*i);
+            g.drawString(Float.toString(a.getRedness()), 840, yloc + 26 + 70*i);
             g.drawString("strat:", 730, yloc + 39 + 70*i);
             g.drawString(a.strat.toString(), 840, yloc + 39 + 70*i);
         }
@@ -82,7 +82,7 @@ public class Stage {
                 actorInAction = Optional.empty();
                 for (Actor a : actors) {
                     if (a.loc.contains(x, y) && a.isTeamRed() && a.turns > 0) {
-                        cellOverlay = grid.getRadius(a.loc, a.moves);
+                        cellOverlay = grid.getRadius(a.loc, a.getMovement());
                         actorInAction = Optional.of(a);
                         currentState = State.SelectingNewLocation;
                     }
@@ -97,6 +97,17 @@ public class Stage {
                 }
                 cellOverlay = new ArrayList<Cell>();
                 if (clicked.isPresent() && actorInAction.isPresent()) {
+                    Optional<StackedActors> na = Optional.empty();
+                    for (Actor a : actors) {
+                        if (clicked.get().equals(a.loc)) {
+                            actors.add(new StackedActors(actorInAction.get(), a));
+                            actors.remove(clicked.get());
+                            actors.remove(a);
+                        }
+                    }
+                    if (na.isPresent()) { 
+
+                    }
                     actorInAction.get().setLocation(clicked.get());
                     actorInAction.get().turns--;
                     int redsWithMovesLeft = 0;
