@@ -10,8 +10,8 @@ class Grid implements Iterable<Cell> {
 
     // constructor
     public Grid(){
-        for(int i = 0; i < cells.length; i++){
-            for(int j = 0; j < cells[i].length; j++){
+        for(int i = 0; i < cells.length; i++) {
+            for(int j = 0; j < cells[i].length; j++) { 
                 cells[i][j] = new Cell(colToLabel(i), j, 10+35*i,10+35*j);
             }
         }
@@ -26,13 +26,13 @@ class Grid implements Iterable<Cell> {
     }
 
     // methods
-    public void paint(Graphics g, Point mousePos){
+    public void paint(Graphics g, Point mousePos) {
         doToEachCell(   (Cell c) -> c.paint(g, mousePos)  );
     }
 
     public Optional<Cell> cellAtColRow(char c, int r) {
         int cc = labelToCol(c);
-        if (cc >= 0 && cc < cells.length && r >= 0 && r < cells[cc].length){
+        if (cc >= 0 && cc < cells.length && r >= 0 && r < cells[cc].length) {
             return Optional.of(cells[cc][r]);
         } else {
             return Optional.empty();
@@ -40,8 +40,8 @@ class Grid implements Iterable<Cell> {
     }
 
     public Optional<Cell> cellAtPoint(Point p) {
-        for (Cell c: this) {
-            if (c.contains(p)) {
+        for(Cell c: this){
+            if (c.contains(p)){
                 return Optional.of(c);
             }
         }
@@ -54,7 +54,7 @@ class Grid implements Iterable<Cell> {
      * @param func The `Cell` to `void` function to apply at each spot.
      */
     public void doToEachCell(Consumer<Cell> func){
-        for (Cell c : this) {
+        for(Cell c : this){
             func.accept(c);
         }
     }
@@ -76,7 +76,6 @@ class Grid implements Iterable<Cell> {
             cellAtColRow(colToLabel(i - 1), j).ifPresent(inRadius::add);
             cellAtColRow(colToLabel(i + 1), j).ifPresent(inRadius::add);
         }
-
         for(Cell c: inRadius.toArray(new Cell[0])){
             inRadius.addAll(getRadius(c, size - 1));
         }
@@ -84,7 +83,7 @@ class Grid implements Iterable<Cell> {
     }
 
     @Override
-    public CellIterator iterator() {
+    public CellIterator iterator(){
         return new CellIterator(cells);
     }
 }

@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.regex.*;
 
 class StageReader {
-    public static Stage readStage(String path){
+    public static Stage readStage(String path) {
         Stage stage = new Stage();
         try{
             Properties props = (new Properties());
@@ -34,7 +34,6 @@ class StageReader {
                 }
             }
         } catch (IOException e){
-
         }
         return stage;
     }
